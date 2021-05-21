@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {setAuthedUser} from '../actions/authedUser'
+import {setLoggedUser} from '../actions/loggedUser'
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 
@@ -9,20 +9,20 @@ class Logout extends Component {
     handleLogout = (event) => {
         event.preventDefault()
         const {dispatch} = this.props
-        dispatch(setAuthedUser(null));
+        dispatch(setLoggedUser(null));
         this.props.history.push(`/login`)
     };
 
     render() {
-        const {authedUser, user} = this.props
+        const {loggedUser, user} = this.props
 
-        return authedUser === null ? (
+        return loggedUser === null ? (
             <span className='message'>You are not logged in</span>
         ) : (
             <div className='d-flex'>
                 <div className='mr-3'>
                     <p className='mb-0'
-                       style={{padding: `5px 0`}}>{Object.values(user.filter((u) => u.id === authedUser)[0].name)}</p>
+                       style={{padding: `5px 0`}}>{Object.values(user.filter((u) => u.id === loggedUser)[0].name)}</p>
                     {/*<img src={user.avatar} alt='user'/>*/}
                 </div>
 
@@ -36,12 +36,12 @@ class Logout extends Component {
     }
 }
 
-function mapStateToProps({authedUser, users}) {
+function mapStateToProps({loggedUser, users}) {
 
     const user = Object.values(users)
 
     return {
-        authedUser,
+        loggedUser,
         user,
     };
 }

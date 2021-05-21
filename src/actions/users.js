@@ -9,10 +9,10 @@ export function receiveUsers(users) {
   };
 }
 
-export function addAnswerToUser(authedUser, qid, answer) {
+export function addAnswerToUser(loggedUser, qid, answer) {
   return {
     type: ADD_ANSWER_TO_USER,
-    authedUser,
+    loggedUser,
     qid,
     answer,
   };

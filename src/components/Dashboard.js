@@ -37,8 +37,8 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps({authedUser, users, questions}) {
-    const answeredIds = Object.keys(users[authedUser].answers);
+function mapStateToProps({loggedUser, users, questions}) {
+    const answeredIds = Object.keys(users[loggedUser].answers);
     const answered = Object.values(questions)
         .filter((question) => answeredIds.includes(question.id))
         .sort((a, b) => b.timestamp - a.timestamp);

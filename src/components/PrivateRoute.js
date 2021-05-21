@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Route, Redirect} from "react-router-dom";
 
-function PrivateRoute({component: Component, authedUser, ...rest}) {
+function PrivateRoute({component: Component, loggedUser, ...rest}) {
 // https://ui.dev/react-router-v4-protected-routes-authentication/
     return (
         <Route
             {...rest}
             render={function (props) {
-                return authedUser !== null ? (
+                return loggedUser !== null ? (
                     <Component {...props} />
 
                 ) : (
@@ -24,9 +24,9 @@ function PrivateRoute({component: Component, authedUser, ...rest}) {
     );
 }
 
-function mapStateToProps({authedUser}) {
+function mapStateToProps({loggedUser}) {
     return {
-        authedUser
+        loggedUser
     }
 }
 

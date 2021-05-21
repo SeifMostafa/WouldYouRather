@@ -135,15 +135,15 @@ class PollResult extends Component {
     }
 }
 
-function mapStateToProps({authedUser, questions, users}, {id}) {
+function mapStateToProps({loggedUser, questions, users}, {id}) {
 
     const question = questions[id];
 
     return {
         id,
-        authedUser,
+        loggedUser,
         question: question
-            ? formatQuestion(question, users[question.author], authedUser)
+            ? formatQuestion(question, users[question.author], loggedUser)
             : null,
     };
 }

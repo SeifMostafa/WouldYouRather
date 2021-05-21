@@ -1,9 +1,11 @@
 import { saveQuestionAnswer, saveQuestion } from "../utils/api";
 import { addAnswerToUser } from "./users";
+import { showLoading, hideLoading } from "react-redux-loading";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_ANSWER_TO_QUESTION = "ADD_ANSWER_TO_QUESTION";
 export const ADD_QUESTION = "ADD_QUESTION";
+
 
 function addQuestion(question) {
 	return {
@@ -13,40 +15,40 @@ function addQuestion(question) {
 }
 export function handleAddQuestion(optionOne, optionTwo) {
 	return (dispatch, getState) => {
-		const { authedUser } = getState();
-		// dispatch(showLoading());
-		console.log("--", optionOne, optionTwo, authedUser);
+		const { loggedUser } = getState();
+		 dispatch(showLoading());
+		console.log("--", optionOne, optionTwo, loggedUser);
 
 		return saveQuestion({
 			optionOneText: optionOne,
 			optionTwoText: optionTwo,
-			author: authedUser,
-		}).then((question) => dispatch(addQuestion(question)));
-		// .then(() => dispatch(hideLoading()));
+			author: loggedUser,
+		}).then((question) => dispatch(addQuestion(question)))
+		 .then(() => dispatch(hideLoading()));
 	};
 }
 
-function addAnswerToQuestion(authedUser, qid, answer) {
+function addAnswerToQuestion(loggedUser, qid, answer) {
 	return {
 		type: ADD_ANSWER_TO_QUESTION,
-		authedUser,
+		loggedUser,
 		qid,
 		answer,
 	};
 }
 
-export function handleAddAnswerToQuestion(authedUser, qid, answer) {
+export function handleAddAnswerToQuestion(loggedUser, qid, answer) {
 	return (dispatch) => {
-		console.log("type of", typeof answer, typeof qid, typeof authedUser);
+		console.log("type of", typeof answer, typeof qid, typeof loggedUser);
 
-		console.log("did", authedUser, qid);
+		console.log("did", loggedUser, qid);
 		return saveQuestionAnswer({
-			authedUser,
+			loggedUser,
 			qid,
 			answer,
 		})
-			.then(() => dispatch(addAnswerToUser(authedUser, qid, answer)))
-			.then(() => dispatch(addAnswerToQuestion(authedUser, qid, answer)));
+			.then(() => dispatch(addAnswerToUser(loggedUser, qid, answer)))
+			.then(() => dispatch(addAnswerToQuestion(loggedUser, qid, answer)));
 	};
 }
 

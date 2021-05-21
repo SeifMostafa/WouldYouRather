@@ -47,9 +47,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(authedUser) {
+function mapStateToProps(loggedUser) {
   return {
-    authedUser,
+    loggedUser,
   };
 }
 

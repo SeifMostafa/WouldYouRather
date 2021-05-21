@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import {connect} from "react-redux";
-import {setAuthedUser} from "../actions/authedUser";
+import {setLoggedUser} from "../actions/loggedUser";
 import {Redirect, withRouter} from "react-router-dom";
 
 function Correct(props) {
@@ -17,7 +17,7 @@ function Correct(props) {
 
 
         if (selectedOption !== "" && 'select') {
-            dispatch(setAuthedUser(selectedOption));
+            dispatch(setLoggedUser(selectedOption));
             setSelectedOption('select')
             setRedirectToRefer(true)
         }

@@ -21,17 +21,17 @@ export default function users(state = {}, action) {
 				},
 			};
 		case ADD_ANSWER_TO_USER:
-			const { authedUser, qid, answer } = action;
+			const { loggedUser, qid, answer } = action;
 			// let options = {};
 			// options = {
 
 			// };
 			return {
 				...state,
-				[authedUser]: {
-					...state[authedUser],
+				[loggedUser]: {
+					...state[loggedUser],
 					answers: {
-						...state[authedUser].answers,
+						...state[loggedUser].answers,
 						[qid]: answer,
 					},
 				},

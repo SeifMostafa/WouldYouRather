@@ -25,9 +25,9 @@ class QuestionPage extends Component {
 		e.preventDefault();
 
 		const { selectedOption } = this.state;
-		const { dispatch, id, authedUser } = this.props;
+		const { dispatch, id, loggedUser } = this.props;
 		if (selectedOption !== "") {
-			dispatch(handleAddAnswerToQuestion(authedUser, id, selectedOption));
+			dispatch(handleAddAnswerToQuestion(loggedUser, id, selectedOption));
 		}
 
 		this.setState(() => ({
@@ -119,7 +119,7 @@ class QuestionPage extends Component {
 	}
 }
 
-function mapStateToProps({ authedUser, questions, users }, props) {
+function mapStateToProps({ loggedUser, questions, users }, props) {
 	const { id } = props.match.params;
 	const question = questions[id];
 
@@ -129,9 +129,9 @@ function mapStateToProps({ authedUser, questions, users }, props) {
 	}
 	return {
 		id,
-		authedUser,
+		loggedUser,
 		question: question
-			? formatQuestion(question, users[question.author], authedUser)
+			? formatQuestion(question, users[question.author], loggedUser)
 			: null,
 	};
 }

@@ -50,10 +50,10 @@ import Logout from "./Logout";
     );
 }
 
-function mapStateToProps(authedUser) {
-     console.log('---', authedUser)
+function mapStateToProps(loggedUser) {
+     console.log('---', loggedUser)
      return {
-         authedUser,
+         loggedUser,
      }
 }
 

@@ -28,7 +28,7 @@ class View extends Component {
     }
 }
 
-function mapStateToProps({authedUser, questions, users}, props) {
+function mapStateToProps({loggedUser, questions, users}, props) {
 
     const {id} = props.match.params;
 
@@ -42,9 +42,9 @@ function mapStateToProps({authedUser, questions, users}, props) {
 
     return {
         id,
-        authedUser,
+        loggedUser,
         question: question
-            ? formatQuestion(question, users[question.author], authedUser)
+            ? formatQuestion(question, users[question.author], loggedUser)
             : null,
     };
 }
