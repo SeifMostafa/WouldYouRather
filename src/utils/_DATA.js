@@ -156,7 +156,7 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
 
 export function _saveQuestion(question) {
 	return new Promise((res, rej) => {
-		const authedUser = question.author;
+		const author = question.author;
 		const formattedQuestion = formatQuestion(question);
 
 		setTimeout(() => {
@@ -167,9 +167,9 @@ export function _saveQuestion(question) {
 
 			users = {
 				...users,
-				[authedUser]: {
-					...users[authedUser],
-					questions: users[authedUser].questions.concat([
+				[author]: {
+					...users[author],
+					questions: users[author].questions.concat([
 						formattedQuestion.id,
 					]),
 				},
@@ -180,15 +180,15 @@ export function _saveQuestion(question) {
 	});
 }
 
-export function _saveQuestionAnswer({ authedUser, qid, answer }) {
+export function _saveQuestionAnswer({ author, qid, answer }) {
 	return new Promise((res, rej) => {
 		setTimeout(() => {
 			users = {
 				...users,
-				[authedUser]: {
-					...users[authedUser],
+				[author]: {
+					...users[author],
 					answers: {
-						...users[authedUser].answers,
+						...users[author].answers,
 						[qid]: answer,
 					},
 				},
@@ -201,7 +201,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
 					[answer]: {
 						...questions[qid][answer],
 						votes: questions[qid][answer].votes.concat([
-							authedUser,
+							author,
 						]),
 					},
 				},

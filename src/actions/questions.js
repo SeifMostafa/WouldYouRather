@@ -43,7 +43,7 @@ export function handleAddAnswerToQuestion(loggedUser, qid, answer) {
 
 		console.log("did", loggedUser, qid);
 		return saveQuestionAnswer({
-			loggedUser,
+			author: loggedUser,
 			qid,
 			answer,
 		})

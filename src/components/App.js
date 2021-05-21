@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
-import Dashboard from "./Dashboard";
+import Home from "./Home";
 import NewQuestion from "./NewQuestion";
 import LeaderBoard from "./LeaderBoard";
 import Login from "./Login";
@@ -23,12 +23,12 @@ class App extends Component {
         <Router>
           <Fragment>
             <LoadingBar />
-            <div className=" ">
+            <div>
               <Nav />
               <div>
                 <Switch>
                   <Route path="/login" component={Login} />
-                  <PrivateRoute path="/" exact component={Dashboard} />
+                  <PrivateRoute path="/" exact component={Home} />
                   <PrivateRoute path="/question/:id" exact component={View} />
                   <PrivateRoute path="/add" exact component={NewQuestion} />
                   <PrivateRoute

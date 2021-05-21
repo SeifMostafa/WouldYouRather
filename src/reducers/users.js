@@ -22,10 +22,6 @@ export default function users(state = {}, action) {
 			};
 		case ADD_ANSWER_TO_USER:
 			const { loggedUser, qid, answer } = action;
-			// let options = {};
-			// options = {
-
-			// };
 			return {
 				...state,
 				[loggedUser]: {

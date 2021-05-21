@@ -23,7 +23,7 @@ function Correct(props) {
         }
     }
 
-    const {authUser} = props;
+    const {loggedUser} = props;
     const {from} = props.location.state || {from: {pathname: '/'}}
 
     if (redirectToRefer === true) {
@@ -47,7 +47,7 @@ function Correct(props) {
                         >
                             <option value='select' key={'select'}>Open this select menu</option>
 
-                            {authUser.map((user) => (
+                            {loggedUser.map((user) => (
                                 <option key={user.id} className='' value={user.id}>
                                     {/* <img src={user.avatarURL}
                                              alt={`Avatar of ${user.name}`}/>*/}
@@ -70,10 +70,10 @@ function Correct(props) {
 }
 
 function mapStateToProps({users}) {
-    const authUser = Object.values(users)
+    const loggedUser = Object.values(users)
 
     return {
-        authUser,
+        loggedUser,
     };
 }
 
