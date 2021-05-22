@@ -7,8 +7,8 @@ import Leaderboard from "./Leaderboard";
 import Login from "./Login";
 import CustomRoute from "./CustomRoute";
 import LoadingBar from "react-redux-loading";
-import { BrowserRouter as Router, Route, Switch , Redirect} from "react-router-dom";
-import View from "./View";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import QuestionView from "./QuestionView";
 import "../index.css"
 import "bootstrap/dist/css/bootstrap.css";
 import Navigationbar from "./Navigationbar";
@@ -28,7 +28,7 @@ class App extends Component {
                 <Switch>
                   <Route path="/login" component={Login} />
                   <CustomRoute path="/" exact component={Home} />
-                  <CustomRoute path="/question/:id" exact component={View} />
+                  <CustomRoute path="/question/:id" exact component={QuestionView} />
                   <CustomRoute path="/add" exact component={NewQuestion} />
                   <CustomRoute
                     path="/Leaderboard"

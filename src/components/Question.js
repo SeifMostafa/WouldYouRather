@@ -23,24 +23,15 @@ class Question extends Component {
               <span>Would you rather</span>
               <div className="options">{optionOne.text} </div>
               <div className="or">or</div>
-
-              {hasAnswered === true ? (
-                <Link to={`/question/${id}`}>
-                  <button
-                    type="submit"
-                    className="custom-btn  remove-margin"
-                    style={{ border: `1px solid green` }}
-                  >
-                    View Poll
-                  </button>
-                </Link>
-              ) : (
-                <Link to={`/question/${id}`}>
-                  <button type="submit" className="custom-btn remove-margin">
-                    View Poll
-                  </button>
-                </Link>
-              )}
+              <Link to={`/question/${id}`}>
+                <button
+                  type="submit"
+                  className="custom-btn  remove-margin"
+                  style={{ border: `1px solid green` }}
+                >
+                  Show Poll
+                </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -30,7 +30,6 @@ class PollResult extends Component {
                         <div className="mb-2 result">Results:</div>
                         {hasAnsweredOne ? (
                             <div className='custom--card bad'>
-                                {/*https://blog.usejournal.com/ribbon-style-badge-for-cards-with-css-5c9da53d908e*/}
                                 <div className="option-one card__container" style={{background: `#83c283`}}>
                                     <p>Would you rather {optionOne.text}</p>
                                     <div className="progress" style={{height: `25px`}}>

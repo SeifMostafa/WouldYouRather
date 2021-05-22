@@ -7,15 +7,11 @@ import { formatQuestion } from "../utils/api";
 class View extends Component {
   render() {
     const { question, id } = this.props;
-
     const { hasAnswered } = question;
+
     return (
       <Fragment>
-        {hasAnswered === true ? (
-          <PollResult id={id} />
-        ) : (
-          <QuestionPage id={id} />
-        )}
+        {hasAnswered ? <PollResult id={id} /> : <QuestionPage id={id} />}
       </Fragment>
     );
   }
@@ -23,21 +19,11 @@ class View extends Component {
 
 function mapStateToProps({ loggedUser, questions, users }, props) {
   const { id } = props.match.params;
-
   const question = questions[id];
-
-  if (question === undefined || question === null) {
-    return {
-      question: false,
-    };
-  }
-
   return {
     id,
     loggedUser,
-    question: question
-      ? formatQuestion(question, users[question.author], loggedUser)
-      : null,
+    question: formatQuestion(question, users[question.author], loggedUser),
   };
 }
 

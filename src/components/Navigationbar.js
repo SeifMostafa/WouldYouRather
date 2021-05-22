@@ -31,12 +31,12 @@ class Navigationbar extends Component {
               </li>
               <li className="nav-item">
                 <NavLink to="/add" activeClassName="active">
-                  New Questions
+                  New Question
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/Leaderboard" activeClassName="active">
-                  Leader Board
+                  Leaderboard
                 </NavLink>
               </li>
             </ul>
