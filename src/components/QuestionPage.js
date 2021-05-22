@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { formatQuestion } from "../utils/helpers";
 import { handleAddAnswerToQuestion } from "../actions/questions";
 import { withRouter, Redirect } from "react-router-dom";
-import NoMatch from "./NoMatch";
 
 
 class QuestionPage extends Component {
@@ -122,11 +121,6 @@ class QuestionPage extends Component {
 function mapStateToProps({ loggedUser, questions, users }, props) {
 	const { id } = props.match.params;
 	const question = questions[id];
-
-	if(question === undefined || question === null) {
-		return <NoMatch />
-
-	}
 	return {
 		id,
 		loggedUser,

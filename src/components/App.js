@@ -5,7 +5,6 @@ import Home from "./Home";
 import NewQuestion from "./NewQuestion";
 import LeaderBoard from "./LeaderBoard";
 import Login from "./Login";
-import NoMatch from "./NoMatch";
 import PrivateRoute from "./PrivateRoute";
 import LoadingBar from "react-redux-loading";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -36,7 +35,6 @@ class App extends Component {
                     exact
                     component={LeaderBoard}
                   />
-                  <PrivateRoute path="" component={NoMatch} />
                 </Switch>
               </div>
             </div>
