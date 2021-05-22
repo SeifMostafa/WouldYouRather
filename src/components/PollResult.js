@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {formatQuestion, percentage} from "../utils/helpers";
+import {formatQuestion} from "../utils/api";
 
 class PollResult extends Component {
     render() {
@@ -11,18 +11,15 @@ class PollResult extends Component {
             per,
             optionOne,
             optionTwo,
-            UsersWhoVotedOne, // No of users who picked option one
-            UsersWhoVotedTwo, // No of users who picked option two
-            hasAnsweredOne,
+            UsersWhoVotedOne, 
+            UsersWhoVotedTwo,
+            hasAnsweredOne, 
             hasAnsweredTwo,
             totalVotes,
         } = question;
 
-        const perPeopleWhoVotedOne = percentage(UsersWhoVotedOne, totalVotes, per);
-        // Percentage of people who voted for option one
-
-        const perPeopleWhoVotedTwo = percentage(UsersWhoVotedTwo, totalVotes, per);
-        // Percentage of people who voted for option two
+        const perPeopleWhoVotedOne = (UsersWhoVotedOne / totalVotes) * per;
+        const perPeopleWhoVotedTwo = (UsersWhoVotedTwo / totalVotes) * per;
 
         return (
             <div className="polls">

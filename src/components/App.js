@@ -3,15 +3,15 @@ import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import Home from "./Home";
 import NewQuestion from "./NewQuestion";
-import LeaderBoard from "./LeaderBoard";
+import Leaderboard from "./Leaderboard";
 import Login from "./Login";
-import PrivateRoute from "./PrivateRoute";
+import CustomRoute from "./CustomRoute";
 import LoadingBar from "react-redux-loading";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Nav from "./Nav";
+import { BrowserRouter as Router, Route, Switch , Redirect} from "react-router-dom";
 import View from "./View";
 import "../index.css"
 import "bootstrap/dist/css/bootstrap.css";
+import Navigationbar from "./Navigationbar";
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
@@ -23,17 +23,17 @@ class App extends Component {
           <Fragment>
             <LoadingBar />
             <div>
-              <Nav />
+              <Navigationbar />
               <div>
                 <Switch>
                   <Route path="/login" component={Login} />
-                  <PrivateRoute path="/" exact component={Home} />
-                  <PrivateRoute path="/question/:id" exact component={View} />
-                  <PrivateRoute path="/add" exact component={NewQuestion} />
-                  <PrivateRoute
-                    path="/leaderBoard"
+                  <CustomRoute path="/" exact component={Home} />
+                  <CustomRoute path="/question/:id" exact component={View} />
+                  <CustomRoute path="/add" exact component={NewQuestion} />
+                  <CustomRoute
+                    path="/Leaderboard"
                     exact
-                    component={LeaderBoard}
+                    component={Leaderboard}
                   />
                 </Switch>
               </div>
@@ -44,6 +44,8 @@ class App extends Component {
     );
   }
 }
+
+
 
 function mapStateToProps(loggedUser) {
   return {

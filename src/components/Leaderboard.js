@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
-class LeaderBoard extends Component {
+class Leaderboard extends Component {
 	render() {
-		const { boardDetails } = this.props;
+		const { sortedUsersUponNumberOfQADetailed } = this.props;
 
 		return (
 			<Fragment>
-				{boardDetails.map((user, index) => (
+				{sortedUsersUponNumberOfQADetailed.map((user) => (
 					<div key={user.id} className="board">
 						<img
 							src={user.avatar}
@@ -18,7 +18,7 @@ class LeaderBoard extends Component {
 							<h3 className="user--name">{user.name}</h3>
 							<div className="user--stat">
 								<p className="user--stat--label">
-									Answered Question
+									Answered Question(s)
 								</p>
 								<p className="no--of--question-created">
 									{user.userAnswers}
@@ -26,7 +26,7 @@ class LeaderBoard extends Component {
 							</div>
 							<div className="user--stat">
 								<p className="user--stat--label">
-									Created Questions
+									Created Question(s)
 								</p>
 								<p className="no--of--question--answered">
 									{user.userQuestions}
@@ -49,7 +49,7 @@ class LeaderBoard extends Component {
 }
 
 function mapStateToProps({ users }) {
-	const boardDetails = Object.values(users)
+	const sortedUsersUponNumberOfQADetailed = Object.values(users)
 		.map((user) => ({
 			score:
 				Object.values(users[user.id].answers).length +
@@ -62,10 +62,8 @@ function mapStateToProps({ users }) {
 		}))
 		.sort((a, b) => b.score - a.score);
 
-	console.log("+++", boardDetails);
-
 	return {
-		boardDetails,
+		sortedUsersUponNumberOfQADetailed,
 	};
 }
-export default connect(mapStateToProps)(LeaderBoard);
+export default connect(mapStateToProps)(Leaderboard);

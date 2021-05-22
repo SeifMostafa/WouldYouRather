@@ -66,7 +66,6 @@ function Correct(props) {
             </div>
         </Fragment>
     )
-
 }
 
 function mapStateToProps({users}) {

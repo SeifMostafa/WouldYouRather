@@ -3,9 +3,15 @@ import { addAnswerToUser } from "./users";
 import { showLoading, hideLoading } from "react-redux-loading";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
-export const ADD_ANSWER_TO_QUESTION = "ADD_ANSWER_TO_QUESTION";
+export const ADD_QUESTION_ANSWER = "ADD_QUESTION_ANSWER";
 export const ADD_QUESTION = "ADD_QUESTION";
 
+export function receiveQuestions(questions) {
+	return {
+		type: RECEIVE_QUESTIONS,
+		questions,
+	};
+}
 
 function addQuestion(question) {
 	return {
@@ -17,8 +23,6 @@ export function handleAddQuestion(optionOne, optionTwo) {
 	return (dispatch, getState) => {
 		const { loggedUser } = getState();
 		 dispatch(showLoading());
-		console.log("--", optionOne, optionTwo, loggedUser);
-
 		return saveQuestion({
 			optionOneText: optionOne,
 			optionTwoText: optionTwo,
@@ -28,16 +32,16 @@ export function handleAddQuestion(optionOne, optionTwo) {
 	};
 }
 
-function addAnswerToQuestion(loggedUser, qid, answer) {
+function addQuestionAnswer(loggedUser, qid, answer) {
 	return {
-		type: ADD_ANSWER_TO_QUESTION,
+		type: ADD_QUESTION_ANSWER,
 		loggedUser,
 		qid,
 		answer,
 	};
 }
 
-export function handleAddAnswerToQuestion(loggedUser, qid, answer) {
+export function handleAddQuestionAnswer(loggedUser, qid, answer) {
 	return (dispatch) => {
 		console.log("type of", typeof answer, typeof qid, typeof loggedUser);
 
@@ -48,13 +52,6 @@ export function handleAddAnswerToQuestion(loggedUser, qid, answer) {
 			answer,
 		})
 			.then(() => dispatch(addAnswerToUser(loggedUser, qid, answer)))
-			.then(() => dispatch(addAnswerToQuestion(loggedUser, qid, answer)));
-	};
-}
-
-export function receiveQuestions(questions) {
-	return {
-		type: RECEIVE_QUESTIONS,
-		questions,
+			.then(() => dispatch(addQuestionAnswer(loggedUser, qid, answer)));
 	};
 }

@@ -1,34 +1,25 @@
 ## Project
 
-This app is a game of question which is answered by the user. It was built as one of three required projects for the completion of the Udacity React Nanodegree Program.
+"Would You Rather?" web app: A user is asked a question in the form: “Would you rather [option A] or [option B] ?”. 
 
-The app was built with the following packages and technologies:
-Redux/ React-Redux/ Redux/ Redux Thunk/ React Redux Loading/ React router .
+## Application Pages:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### `Login`
+to start playing, user must log in with specified user, from the naviagtion bar (later).. user can log out.
+### `Home`
+contains navigation bar to move around the other application pages,
+contains two tabs for answered & unanswered questions,
+### `Leader Board`
+each question/answer will give user a point to motivate users to engage, Leaderboard shows the users aligned with their points.
+### `Question`
+in the following states:
+1- adding new question, which all the fields would be empty & expected to be fulled up from user,
+2- question that had been asked by other user & expected to get an answer from the logged user,
+3- already answered question.. maybe to check statistics of that question.
 
-![alt text](./public/react-1.png)
 
 ## Installation
 
-To clone repository run:
-
-### `git clone https://github.com/Muhammadcod/would-you-rather.git`
-
-Change into project directory
-
-### `cd would-you-rather`
-
-Then run yarn to install the dependencies.
-
-### `yarn install`
-
-## Usage
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+run following npm commands to install and start Application:
+### `npm i`
+### `npm start`

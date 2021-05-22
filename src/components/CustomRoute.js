@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
-function PrivateRoute({ component: Component, loggedUser, ...rest }) {
+function CustomRoute({ component: Component, loggedUser, ...rest }) {
   return (
     <Route
       {...rest}
@@ -28,4 +28,4 @@ function mapStateToProps({ loggedUser }) {
   };
 }
 
-export default connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps)(CustomRoute);

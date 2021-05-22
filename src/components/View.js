@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import QuestionPage from "./QuestionPage";
 import PollResult from "./PollResult";
-import { formatQuestion } from "../utils/helpers";
+import { formatQuestion } from "../utils/api";
 
 class View extends Component {
   render() {

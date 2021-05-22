@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { formatQuestion } from "../utils/helpers";
-import { handleAddAnswerToQuestion } from "../actions/questions";
+import { formatQuestion } from "../utils/api";
+import { handleAddQuestionAnswer } from "../actions/questions";
 import { withRouter, Redirect } from "react-router-dom";
 
 
@@ -26,7 +26,7 @@ class QuestionPage extends Component {
 		const { selectedOption } = this.state;
 		const { dispatch, id, loggedUser } = this.props;
 		if (selectedOption !== "") {
-			dispatch(handleAddAnswerToQuestion(loggedUser, id, selectedOption));
+			dispatch(handleAddQuestionAnswer(loggedUser, id, selectedOption));
 		}
 
 		this.setState(() => ({
