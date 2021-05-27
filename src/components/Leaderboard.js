@@ -2,68 +2,53 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 class Leaderboard extends Component {
-	render() {
-		const { sortedUsersUponNumberOfQADetailed } = this.props;
+  render() {
+    const { leaderboardUsers } = this.props;
 
-		return (
-			<Fragment>
-				{sortedUsersUponNumberOfQADetailed.map((user) => (
-					<div key={user.id} className="board">
-						<img
-							src={user.avatar}
-							alt={`Avatar of ${user.name}`}
-							className="avatar"
-						/>
-						<div className="user--detail">
-							<h3 className="user--name">{user.name}</h3>
-							<div className="user--stat">
-								<p className="user--stat--label">
-									Answered Question(s)
-								</p>
-								<p className="no--of--question-created">
-									{user.userAnswers}
-								</p>
-							</div>
-							<div className="user--stat">
-								<p className="user--stat--label">
-									Created Question(s)
-								</p>
-								<p className="no--of--question--answered">
-									{user.userQuestions}
-								</p>
-							</div>
-						</div>
-						<div className=" user--score">
-							<div className="user--score--details">
-								<span className="border">Score</span>
-								<span className="border">
-									<span>{user.score}</span>
-								</span>
-							</div>
-						</div>
-					</div>
-				))}
-			</Fragment>
-		);
-	}
+    return (
+      <Fragment>
+        <ul class="list-unstyled center ml-5">
+          {leaderboardUsers.map((user) => (
+            <li key={user.id} className="media w-50 mb-5 mt-5">
+              <img
+                class="avatar align-self-start mr-3"
+                src={user.imgURL}
+                alt="Card image cap"
+              />
+              <div className="media-body">
+                <h3 className="strong">{user.name}</h3>
+                <h5>Score: {user.score}</h5>
+                Answered Question(s) = {user.numOfAnsweredQuestions} , Created
+                Question(s) = {user.numOfCreatedQuestions}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Fragment>
+    );
+  }
 }
 
 function mapStateToProps({ users }) {
-	const sortedUsersUponNumberOfQADetailed = Object.values(users)
-		.map((user) => ({
-			score:
-				Object.values(users[user.id].answers).length +
-				users[user.id].questions.length,
-			userQuestions: users[user.id].questions.length,
-			userAnswers: Object.values(users[user.id].answers).length,
-			id: user.id,
-			name: user.name,
-			avatar: user.avatarURL,
-		}))
-		.sort((a, b) => b.score - a.score);
+  const userValues = Object.values(users);
+  let leaderboardUsers = [];
+  var i;
+  for (i = 0; i < userValues.length; i++) {
+    const numOfCreatedQuestions = userValues[i].questions.length;
+    const numOfAnsweredQuestions = Object.values(userValues[i].answers).length;
 
-	return {
-		sortedUsersUponNumberOfQADetailed,
-	};
+    leaderboardUsers.push({
+      name: userValues[i].name,
+      id: userValues[i].id,
+      imgURL: userValues[i].avatarURL,
+      score: numOfCreatedQuestions + numOfAnsweredQuestions,
+      numOfCreatedQuestions,
+      numOfAnsweredQuestions,
+    });
+  }
+  leaderboardUsers.sort((a, b) => b.score - a.score);
+  return {
+    leaderboardUsers,
+  };
 }
 export default connect(mapStateToProps)(Leaderboard);

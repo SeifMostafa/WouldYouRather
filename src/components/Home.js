@@ -1,48 +1,86 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import Tabs from "./Tabs";
 import Question from "./Question";
 
 class Home extends Component {
+  state = {
+    showUnAnsweredQuestions: true, // default value true
+  };
+
+  handleClick = () => {
+    const { showUnAnsweredQuestions } = this.state;
+
+    showUnAnsweredQuestions
+      ? this.setState(() => ({
+          showUnAnsweredQuestions: false,
+        }))
+      : this.setState(() => ({
+          showUnAnsweredQuestions: true,
+        }));
+  };
   render() {
     const { unansweredQuestions, answeredQuestions } = this.props;
-
+    const { showUnAnsweredQuestions } = this.state;
     return (
       <Fragment>
-        <Tabs>
-          <div label="Unanswered Questions">
-            <ul className="Home-list">
-              {unansweredQuestions.map((question) => (
-                <li key={question.id}>
-                  <Question id={question.id} />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div label="Answered Questions">
-            <ul className="Home-list">
-              {answeredQuestions.map((question) => (
-                <li key={question.id}>
-                  <Question id={question.id} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Tabs>
+        <ul className="nav nav-pills nav-fill mt-2 mb-5">
+          <li className="nav-item">
+            <a
+              className="nav-link active"
+              aria-current="page"
+              href="#"
+              onClick={this.handleClick}
+            >
+              Unanswered Questions
+            </a>
+            {showUnAnsweredQuestions
+              ? unansweredQuestions.map((question) => (
+                  <li key={question.id}>
+                    <Question id={question.id} />
+                  </li>
+                ))
+              : null}
+          </li>
+          <li className="nav-item">
+            <a
+              className="nav-link active"
+              aria-current="page"
+              href="#"
+              onClick={this.handleClick}
+            >
+              Answered Questions
+            </a>
+            {!showUnAnsweredQuestions
+              ? answeredQuestions.map((question) => (
+                  <li key={question.id}>
+                    <Question id={question.id} />
+                  </li>
+                ))
+              : null}
+          </li>
+        </ul>
       </Fragment>
     );
   }
 }
 
-function mapStateToProps({ loggedUser, users, questions }) {
-  const answeredIds = Object.keys(users[loggedUser].answers);
-  const answeredQuestions = Object.values(questions)
-    .filter((question) => answeredIds.includes(question.id))
-    .sort((a, b) => b.timestamp - a.timestamp);
-  const unansweredQuestions = Object.values(questions)
-    .filter((question) => !answeredIds.includes(question.id))
-    .sort((a, b) => b.timestamp - a.timestamp);
-
+function mapStateToProps({ loggedUser, questions }) {
+  let answeredQuestions = [];
+  let unansweredQuestions = [];
+  var i;
+  var questionValues = Object.values(questions);
+  for (i = 0; i < Object.values(questions).length; i++) {
+    if (
+      questionValues[i].optionOne.votes.includes(loggedUser) ||
+      questionValues[i].optionTwo.votes.includes(loggedUser)
+    ) {
+      answeredQuestions.push(questionValues[i]);
+    } else {
+      unansweredQuestions.push(questionValues[i]);
+    }
+  }
+  unansweredQuestions.sort((a, b) => b.timestamp - a.timestamp);
+  answeredQuestions.sort((a, b) => b.timestamp - a.timestamp);
   return {
     answeredQuestions,
     unansweredQuestions,
