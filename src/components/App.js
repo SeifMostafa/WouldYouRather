@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import Home from "./Home";
-import NewQuestion from "./NewQuestion";
+import AddQuestion from "./AddQuestion";
 import Leaderboard from "./Leaderboard";
 import Login from "./Login";
 import CustomRoute from "./CustomRoute";
@@ -29,7 +29,7 @@ class App extends Component {
                   <Route path="/login" component={Login} />
                   <CustomRoute path="/" exact component={Home} />
                   <CustomRoute path="/question/:id" exact component={QuestionView} />
-                  <CustomRoute path="/add" exact component={NewQuestion} />
+                  <CustomRoute path="/add" exact component={AddQuestion} />
                   <CustomRoute
                     path="/Leaderboard"
                     exact

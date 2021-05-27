@@ -10,29 +10,28 @@ class Question extends Component {
     if (question === null) {
       return <p>This Question doesn't exist</p>;
     }
-
-    const { name, avatar, optionOne, id, hasAnswered } = question;
-
     return (
-      <div className="polls">
-        <h5 className="questioner">{name} asks:</h5>
-        <div className="poll">
-          <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
-          <div className="poll-info">
-            <div className="">
-              <span>Would you rather</span>
-              <div className="options">{optionOne.text} </div>
-              <div className="or">or</div>
-              <Link to={`/question/${id}`}>
-                <button
-                  type="submit"
-                  className="custom-btn  remove-margin"
-                  style={{ border: `1px solid green` }}
-                >
-                  Show Poll
-                </button>
-              </Link>
-            </div>
+      <div className="card">
+        <h5 className="mt-4 mb-2">{question.askedBy} asks:</h5>
+        <div className="media">
+          <img
+            src={question.avatarURL}
+            alt={`Avatar of ${question.askedBy}`}
+            className="avatar"
+          />
+          <div className="card-content">
+            <span>Would you rather</span>
+            <div className="mt-2">{question.optionOne.text} </div>
+            <div className="mt-2">OR ..</div>
+            <Link to={`/question/${question.id}`}>
+              <button
+                type="submit"
+                className="btn btn-secondary mt-2 mb-3"
+                style={{ border: `1px solid green` }}
+              >
+                Show Poll
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -45,7 +44,7 @@ function mapStateToProps({ loggedUser, users, questions }, { id }) {
 
   return {
     loggedUser,
-    question: formatQuestion(question, users[question.author], loggedUser)
+    question: formatQuestion(question, users[question.author], loggedUser),
   };
 }
 

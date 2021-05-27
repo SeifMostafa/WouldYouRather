@@ -35,11 +35,10 @@ class QuestionView extends Component {
   };
 
   render() {
-    const { question, id } = this.props;
+    const { question } = this.props;
     const {
       name,
       avatar,
-      per,
       optionOne,
       optionTwo,
       UsersWhoVotedOne,
@@ -50,120 +49,83 @@ class QuestionView extends Component {
       totalVotes,
     } = question;
 
-    const perPeopleWhoVotedOne = (UsersWhoVotedOne / totalVotes) * per;
-    const perPeopleWhoVotedTwo = (UsersWhoVotedTwo / totalVotes) * per;
+    const vote1Percentage =
+      (question.numOfOption1Votes / question.totalVotes) * 100;
+    const vote2Percentage =
+      (question.numOfOption2Votes / question.totalVotes) * 100;
     const { selectedOption } = this.state;
 
     return (
       <Fragment>
-        {hasAnswered ? (
-          <div className="polls">
-            <h5 className="questioner"> Asked by {name}</h5>
-            <div className="poll">
-              <img src={avatar} alt="" className="avatar" />
-              <div className="poll-info ">
-                <div className="mb-2 result">Results:</div>
-                {hasAnsweredOne ? (
-                  <div className="custom--card bad">
+        {question.hasAnswered ? (
+          <div className="media mr-3 ml-3">
+            <h5 className="mt-5 mb-3 mr-4"> Asked by {question.askedBy}</h5>
+            <img
+              src={question.avatarURL}
+              alt={`Avatar of ${question.askedBy}`}
+              className="avatar center"
+            />
+            <div className="card-body">
+              <ul>
+                <li
+                  style={
+                    question.hasAnsweredOne
+                      ? { background: `#83c283` }
+                      : { background: `#ffffff` }
+                  }
+                >
+                  <p>Would you rather {question.optionOne.text}</p>
+                  <div class="progress">
                     <div
-                      className="option-one card__container"
-                      style={{ background: `#83c283` }}
+                      class="progress-bar"
+                      role="progressbar"
+                      style={{
+                        width: `${vote1Percentage}%`,
+                      }}
+                      aria-valuenow={vote1Percentage}
+                      aria-valuemin="0"
+                      aria-valuemax="100"
                     >
-                      <p>Would you rather {optionOne.text}</p>
-                      <div className="progress" style={{ height: `25px` }}>
-                        <div
-                          className="progress-bar"
-                          role="progressbar"
-                          style={{
-                            width: `${perPeopleWhoVotedOne}%`,
-                          }}
-                          aria-valuenow={perPeopleWhoVotedOne}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          {perPeopleWhoVotedOne.toFixed(1)}%
-                        </div>
-                      </div>
-                      <p className="text-center">
-                        {UsersWhoVotedOne} of {totalVotes}
-                      </p>
+                      {vote1Percentage.toFixed(1)}%
                     </div>
                   </div>
-                ) : (
-                  <div className="bad">
-                    <div className="option-one card__container">
-                      <p>Would you rather {optionOne.text}</p>
-                      <div className="progress" style={{ height: `25px` }}>
-                        <div
-                          className="progress-bar"
-                          role="progressbar"
-                          style={{
-                            width: `${perPeopleWhoVotedOne}%`,
-                          }}
-                          aria-valuenow={perPeopleWhoVotedOne}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          {perPeopleWhoVotedOne.toFixed(1)}%
-                        </div>
-                      </div>
-                      <p className="text-center">
-                        {UsersWhoVotedOne} of {totalVotes}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {hasAnsweredTwo ? (
-                  <div className="custom--card bad">
+                  <p className="text-center">
+                    {question.numOfOption1Votes} of {question.totalVotes}
+                  </p>
+                  {question.hasAnsweredOne? ( <h3 className="text-end">
+                    Your vote!
+                  </h3>) : null}
+                </li>
+                <li
+                  style={
+                    question.hasAnsweredTwo
+                      ? { background: `#83c283` }
+                      : { background: `#ffffff` }
+                  }
+                >
+                  <p>Would you rather {optionTwo.text}</p>
+                  <div class="progress">
                     <div
-                      className="option-two card__container"
-                      style={{ background: `#83c283` }}
+                      class="progress-bar"
+                      role="progressbar"
+                      style={{
+                        width: `${vote2Percentage}%`,
+                      }}
+                      aria-valuenow={vote2Percentage}
+                      aria-valuemin="0"
+                      aria-valuemax="100"
                     >
-                      <p>Would you rather {optionTwo.text}</p>
-                      <div className="progress" style={{ height: `25px` }}>
-                        <div
-                          className="progress-bar"
-                          role="progressbar"
-                          style={{
-                            width: `${perPeopleWhoVotedTwo}%`,
-                          }}
-                          aria-valuenow={perPeopleWhoVotedTwo}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          {perPeopleWhoVotedTwo.toFixed(1)}%
-                        </div>
-                      </div>
-                      <p className="text-center">
-                        {UsersWhoVotedTwo} of {totalVotes}
-                      </p>
+                      {vote2Percentage.toFixed(1)}%
                     </div>
                   </div>
-                ) : (
-                  <div className="bad">
-                    <div className="option-two card__container">
-                      <p>Would you rather {optionTwo.text}</p>
-                      <div className="progress" style={{ height: `25px` }}>
-                        <div
-                          className="progress-bar"
-                          role="progressbar"
-                          style={{
-                            width: `${perPeopleWhoVotedTwo}%`,
-                          }}
-                          aria-valuenow={perPeopleWhoVotedTwo}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          {perPeopleWhoVotedTwo.toFixed(1)}%
-                        </div>
-                      </div>
-                      <p className="text-center">
-                        {UsersWhoVotedTwo} of {totalVotes}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
+                  <p className="text-center">
+                    {question.numOfOption2Votes} of {question.totalVotes}
+                  </p>
+                  {question.hasAnsweredTwo? ( <h3 className="text-end">
+                    Your vote!
+                  </h3>) : null}
+                </li>
+              </ul>
             </div>
           </div>
         ) : (

@@ -23,26 +23,23 @@ export function saveQuestionAnswer(object) {
 }
 
 export function formatQuestion(question, author, authedUser) {
-	const { id, timestamp, optionOne, optionTwo } = question;
-	const { name, avatarURL, answers, questions } = author;
-
+	const { id, optionOne, optionTwo } = question;
+	const { name, avatarURL } = author;
+	const numOfOption1Votes  = optionOne.votes.length;
+	const numOfOption2Votes =  optionTwo.votes.length;
 	return {
 		id,
-		name,
-		answers,
-		per: 100,
-		questions,
-		timestamp,
-		avatar: avatarURL,
+		askedBy:name,
+		avatarURL,
 		optionOne,
 		optionTwo,
-		UsersWhoVotedOne: optionOne.votes.length,
-		UsersWhoVotedTwo: optionTwo.votes.length,
+		numOfOption1Votes,
+		numOfOption2Votes,
 		hasAnsweredOne: optionOne.votes.includes(authedUser),
 		hasAnsweredTwo: optionTwo.votes.includes(authedUser),
 		hasAnswered:
 			optionOne.votes.includes(authedUser) ||
 			optionTwo.votes.includes(authedUser),
-		totalVotes: optionOne.votes.length + optionTwo.votes.length,
+		totalVotes: numOfOption2Votes + numOfOption1Votes,
 	};
 }
