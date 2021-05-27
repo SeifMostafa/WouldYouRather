@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 
 class Navigationbar extends Component {
   render() {
-    const { loggedUser, users } = this.props;
+    const { username } = this.props;
     return (
       <ul className="nav nav-pills nav-fill mt-2 mb-5">
         <li className="nav-item">
@@ -27,11 +27,11 @@ class Navigationbar extends Component {
         </li>
 
         <li className="mr-2">
-          {loggedUser === null ? (
+          {username === null ? (
             <span className="message">You are not logged in</span>
           ) : (
             <div className="d-flex">
-              <div className="mr-3">{users[loggedUser].name}</div>
+              <div className="mr-3">{username}</div>
               <button
                 className="btn btn-outline-success"
                 onClick={this.handleLogout}
@@ -44,8 +44,7 @@ class Navigationbar extends Component {
       </ul>
     );
   }
-  handleLogout = (event) => {
-    event.preventDefault();
+  handleLogout = () => {
     const { dispatch } = this.props;
     dispatch(setLoggedUser(null));
     this.props.history.push(`/login`);
@@ -53,9 +52,10 @@ class Navigationbar extends Component {
 }
 
 function mapStateToProps({ loggedUser, users }) {
+  let username;
+  loggedUser === null ? (username = null) : (username = users[loggedUser].name);
   return {
-    loggedUser,
-    users,
+    username,
   };
 }
 

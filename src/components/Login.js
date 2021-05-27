@@ -1,71 +1,87 @@
-import React, { useState, Fragment } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { setLoggedUser } from "../actions/loggedUser";
 import { Redirect, withRouter } from "react-router-dom";
 
-function Login(props) {
-  const [selectedOption, setSelectedOption] = useState("none");
-  const [redirectToRefer, setRedirectToRefer] = useState(false);
+class Login extends Component {
+  state = {
+    selectedOption: "none",
+    toHome: false,
+  };
 
-  const handleSubmit = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
-    const { dispatch } = props;
+    const { dispatch } = this.props;
 
-    if (selectedOption !== "" && "none") {
-      dispatch(setLoggedUser(selectedOption));
-      setSelectedOption("none");
-      setRedirectToRefer(true);
+    if (this.state.selectedOption !== "none") {
+      dispatch(setLoggedUser(this.state.selectedOption));
+      this.setState(() => ({
+        toHome: true,
+        selectedOption: "none",
+      }));
     }
   };
 
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+  handleChange = (event) => {
+    const selectedUser = event.target.value;
+    this.setState(() => ({
+      ...this.state,
+      selectedOption: selectedUser,
+    }));
   };
 
-  const { users } = props;
-  const { from } = props.location.state || { from: { pathname: "/" } };
+  render() {
+    const { users } = this.props;
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { toHome, selectedOption } = this.state;
 
-  if (redirectToRefer === true) {
-    return <Redirect to={from} />;
-  }
+    if (toHome === true) {
+      return <Redirect to={from} />;
+    }
 
-  return (
-    <Fragment>
-      <div className="new-polls">
-        <div className="center questioner">
-          <h4 className="mb-0">Welcome to The Would You Rather App</h4>
-          <p className="mb-0">Please sign in to continue</p>
-        </div>
-        <div className="new-polls-input">
-          <form onSubmit={handleSubmit}>
-            <select
-              className="form-select form-select-lg mb-3 select "
-              aria-label=".form-select-lg example"
-              value={selectedOption}
-              onChange={handleChange}
-            >
-              <option value="none" key={"none"}>
-                Open this select menu
-              </option>
+    return (
+      <Fragment>
+        <div className="card">
+          <div className="center">
+            <p className="mb-2">Please sign in:</p>
 
-              {json2array(users).map((user) => (
-                <option key={user.id} className="" value={user.id}>
-                  {user.name}
+            <form onSubmit={this.handleSubmit}>
+              <select
+                className="form-select form-select-lg mb-4 select"
+                value={selectedOption}
+                onChange={this.handleChange}
+              >
+                <option value="none" key={"none"}>
+                  Open menu
                 </option>
-              ))}
-            </select>
-            <button
-              className="custom-btn custom-btn-two btn-success custom-btn-three"
-              disabled={selectedOption === "none"}
-              type="submit"
-            >
-              Sign In
-            </button>
-          </form>
+
+                {this.json2array(users).map((user) => (
+                  <option key={user.id} value={user.id}>
+                    {user.name}
+                  </option>
+                ))}
+              </select>
+              <button
+                className="btn btn-primary ml-5"
+                disabled={selectedOption === "none"}
+                type="submit"
+              >
+                Sign In
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    </Fragment>
-  );
+      </Fragment>
+    );
+  }
+  json2array(json) {
+    var result = [];
+    var keys = Object.keys(json);
+    keys.forEach(function (key) {
+      result.push(json[key]);
+    });
+    return result;
+  }
 }
 
 function mapStateToProps({ users }, { loggedUser }) {
@@ -73,15 +89,6 @@ function mapStateToProps({ users }, { loggedUser }) {
     users,
     loggedUser: users[loggedUser],
   };
-}
-
-function json2array(json) {
-  var result = [];
-  var keys = Object.keys(json);
-  keys.forEach(function (key) {
-    result.push(json[key]);
-  });
-  return result;
 }
 
 export default withRouter(connect(mapStateToProps)(Login));
