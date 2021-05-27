@@ -28,7 +28,6 @@ class Home extends Component {
             <a
               className="nav-link active"
               aria-current="page"
-              href="#"
               onClick={this.handleClick}
             >
               Unanswered Questions
@@ -45,7 +44,6 @@ class Home extends Component {
             <a
               className="nav-link active"
               aria-current="page"
-              href="#"
               onClick={this.handleClick}
             >
               Answered Questions

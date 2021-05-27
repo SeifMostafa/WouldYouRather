@@ -36,19 +36,6 @@ class QuestionView extends Component {
 
   render() {
     const { question } = this.props;
-    const {
-      name,
-      avatar,
-      optionOne,
-      optionTwo,
-      UsersWhoVotedOne,
-      UsersWhoVotedTwo,
-      hasAnsweredOne,
-      hasAnsweredTwo,
-      hasAnswered,
-      totalVotes,
-    } = question;
-
     const vote1Percentage =
       (question.numOfOption1Votes / question.totalVotes) * 100;
     const vote2Percentage =
@@ -65,7 +52,7 @@ class QuestionView extends Component {
               alt={`Avatar of ${question.askedBy}`}
               className="avatar center"
             />
-            <div className="card-body">
+            <div className="media-body">
               <ul>
                 <li
                   style={
@@ -92,9 +79,9 @@ class QuestionView extends Component {
                   <p className="text-center">
                     {question.numOfOption1Votes} of {question.totalVotes}
                   </p>
-                  {question.hasAnsweredOne? ( <h3 className="text-end">
-                    Your vote!
-                  </h3>) : null}
+                  {question.hasAnsweredOne ? (
+                    <h3 className="text-end">Your vote!</h3>
+                  ) : null}
                 </li>
                 <li
                   style={
@@ -103,7 +90,7 @@ class QuestionView extends Component {
                       : { background: `#ffffff` }
                   }
                 >
-                  <p>Would you rather {optionTwo.text}</p>
+                  <p>Would you rather {question.optionTwo.text}</p>
                   <div class="progress">
                     <div
                       class="progress-bar"
@@ -121,60 +108,61 @@ class QuestionView extends Component {
                   <p className="text-center">
                     {question.numOfOption2Votes} of {question.totalVotes}
                   </p>
-                  {question.hasAnsweredTwo? ( <h3 className="text-end">
-                    Your vote!
-                  </h3>) : null}
+                  {question.hasAnsweredTwo ? (
+                    <h3 className="text-end">Your vote!</h3>
+                  ) : null}
                 </li>
               </ul>
             </div>
           </div>
         ) : (
-          <div className="polls">
-            <h5 className="questioner"> {name} asks:</h5>
-            <div className="poll">
-              <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
-              <div className="poll-info">
-                <div className="">
-                  <span>Would you rather</span>
-                  <form onSubmit={this.handleSubmit}>
-                    <div className="form-check">
-                      <label className="">
-                        <input
-                          type="radio"
-                          value="optionOne"
-                          onChange={this.handleOptionChange}
-                          checked={this.state.selectedOption === "optionOne"}
-                          className="form-check-input"
-                        />
-                        {optionOne.text}
-                      </label>
-                    </div>
-                    <p>or</p>
-                    <div className="form-check">
-                      <label>
-                        <input
-                          type="radio"
-                          value="optionTwo"
-                          onChange={this.handleOptionChange}
-                          checked={this.state.selectedOption === "optionTwo"}
-                          className="form-check-input"
-                        />
-                        {optionTwo.text}
-                      </label>
-                    </div>
+          <div className="media mr-3 ml-3">
+            <h3 className="mt-5 mb-3 mr-2 ml-4"> {question.askedBy} asks:</h3>
 
-                    <div className="form-group">
-                      <button
-                        className="custom-btn btn-success remove-margin"
-                        disabled={selectedOption === ""}
-                        type="submit"
-                      >
-                        Submit
-                      </button>
-                    </div>
-                  </form>
+            <img
+              src={question.avatarURL}
+              alt={`Avatar of ${question.askedBy}`}
+              className="avatar center"
+            />
+            <div className="media-body">
+              <h3>Would you rather</h3>
+              <form onSubmit={this.handleSubmit}>
+                <div className="form-check">
+                  <label>
+                    <input
+                      type="radio"
+                      value="optionOne"
+                      onChange={this.handleOptionChange}
+                      checked={this.state.selectedOption === "optionOne"}
+                      className="form-check-input"
+                    />
+                    {question.optionOne.text}
+                  </label>
                 </div>
-              </div>
+                <h2 className="text-start">or</h2>
+                <div className="form-check">
+                  <label>
+                    <input
+                      type="radio"
+                      value="optionTwo"
+                      onChange={this.handleOptionChange}
+                      checked={this.state.selectedOption === "optionTwo"}
+                      className="form-check-input"
+                    />
+                    {question.optionTwo.text}
+                  </label>
+                </div>
+
+                <div className="form-group">
+                  <button
+                    className="btn btn-primary col-md-3  mt-2 mb-3"
+                    disabled={selectedOption === ""}
+                    type="submit"
+                  >
+                    Answer
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

@@ -11,13 +11,13 @@ class Leaderboard extends Component {
           {leaderboardUsers.map((user) => (
             <li key={user.id} className="media w-50 mb-5 mt-5">
               <img
-                class="avatar align-self-start mr-3"
+                className="avatar align-self-start mr-3"
                 src={user.imgURL}
-                alt="Card image cap"
+                alt={`Avatar of ${user.name}`}
               />
               <div className="media-body">
                 <h3 className="strong">{user.name}</h3>
-                <h5>Score: {user.score}</h5>
+                <h5 className="text-primary">Score: {user.score}</h5>
                 Answered Question(s) = {user.numOfAnsweredQuestions} , Created
                 Question(s) = {user.numOfCreatedQuestions}
               </div>
