@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { formatQuestion } from "../utils/api";
 import { handleAddQuestionAnswer } from "../actions/questions";
 import { withRouter, Redirect } from "react-router-dom";
 
@@ -21,16 +20,16 @@ class QuestionView extends Component {
     e.preventDefault();
 
     const { selectedOption } = this.state;
-    const { dispatch, id, loggedUser } = this.props;
+    const { dispatch, question, loggedUser } = this.props;
     if (selectedOption !== "") {
-      dispatch(handleAddQuestionAnswer(loggedUser, id, selectedOption));
+      dispatch(handleAddQuestionAnswer(loggedUser, question.id, selectedOption));
     }
 
     this.setState(() => ({
       selectedOption: "",
     }));
 
-    this.props.history.push(`/question/${id}`);
+    this.props.history.push(`/question/${question.id}`);
     return <Redirect to="/" />;
   };
 
@@ -173,11 +172,29 @@ class QuestionView extends Component {
 
 function mapStateToProps({ loggedUser, questions, users }, props) {
   const { id } = props.match.params;
-  const question = questions[id];
+  const { optionOne, optionTwo } = questions[id];
+  const { name, avatarURL } = users[questions[id].author];
+  const numOfOption1Votes = optionOne.votes.length;
+  const numOfOption2Votes = optionTwo.votes.length;
+
+
   return {
-    id,
     loggedUser,
-    question: formatQuestion(question, users[question.author], loggedUser),
+    question: {
+      id,
+      askedBy: name,
+      avatarURL,
+      optionOne,
+      optionTwo,
+      numOfOption1Votes,
+      numOfOption2Votes,
+      hasAnsweredOne: optionOne.votes.includes(loggedUser),
+      hasAnsweredTwo: optionTwo.votes.includes(loggedUser),
+      hasAnswered:
+        optionOne.votes.includes(loggedUser) ||
+        optionTwo.votes.includes(loggedUser),
+      totalVotes: numOfOption2Votes + numOfOption1Votes,
+    }
   };
 }
 

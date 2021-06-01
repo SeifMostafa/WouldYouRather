@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { formatQuestion } from "../utils/api";
 import { Link, withRouter } from "react-router-dom";
 
 class Question extends Component {
@@ -40,11 +39,27 @@ class Question extends Component {
 }
 
 function mapStateToProps({ loggedUser, users, questions }, { id }) {
-  const question = questions[id];
-
+  const {  optionOne, optionTwo } = questions[id];
+  const { name, avatarURL } = users[questions[id].author];
+  const numOfOption1Votes = optionOne.votes.length;
+  const numOfOption2Votes = optionTwo.votes.length;
   return {
     loggedUser,
-    question: formatQuestion(question, users[question.author], loggedUser),
+    question: {
+      id,
+      askedBy: name,
+      avatarURL,
+      optionOne,
+      optionTwo,
+      numOfOption1Votes,
+      numOfOption2Votes,
+      hasAnsweredOne: optionOne.votes.includes(loggedUser),
+      hasAnsweredTwo: optionTwo.votes.includes(loggedUser),
+      hasAnswered:
+        optionOne.votes.includes(loggedUser) ||
+        optionTwo.votes.includes(loggedUser),
+      totalVotes: numOfOption2Votes + numOfOption1Votes,
+    },
   };
 }
 
