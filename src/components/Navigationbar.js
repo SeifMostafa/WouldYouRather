@@ -21,7 +21,7 @@ class Navigationbar extends Component {
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="/Leaderboard" activeClassName="active">
+          <NavLink to="/leaderboard" activeClassName="active">
             Leaderboard
           </NavLink>
         </li>

@@ -34,9 +34,9 @@ class Home extends Component {
             </a>
             {showUnAnsweredQuestions
               ? unansweredQuestions.map((question) => (
-                  <li key={question.id}>
+                  <div key={question.id}>
                     <Question id={question.id} />
-                  </li>
+                  </div>
                 ))
               : null}
           </li>
@@ -50,9 +50,9 @@ class Home extends Component {
             </a>
             {!showUnAnsweredQuestions
               ? answeredQuestions.map((question) => (
-                  <li key={question.id}>
+                  <div key={question.id}>
                     <Question id={question.id} />
-                  </li>
+                  </div>
                 ))
               : null}
           </li>

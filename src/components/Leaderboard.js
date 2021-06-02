@@ -7,7 +7,7 @@ class Leaderboard extends Component {
 
     return (
       <Fragment>
-        <ul class="list-unstyled center ml-5">
+        <ul className="list-unstyled center ml-5">
           {leaderboardUsers.map((user) => (
             <li key={user.id} className="media w-50 mb-5 mt-5">
               <img

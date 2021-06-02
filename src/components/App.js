@@ -5,11 +5,12 @@ import Home from "./Home";
 import AddQuestion from "./AddQuestion";
 import Leaderboard from "./Leaderboard";
 import Login from "./Login";
+import My404Component from "./My404Component";
 import CustomRoute from "./CustomRoute";
 import LoadingBar from "react-redux-loading";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import QuestionView from "./QuestionView";
-import "../index.css"
+import "../index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Navigationbar from "./Navigationbar";
 class App extends Component {
@@ -26,15 +27,22 @@ class App extends Component {
               <Navigationbar />
               <div>
                 <Switch>
-                  <Route path="/login" component={Login} />
+                 
+                  <Route exact path="/login" component={Login} />
                   <CustomRoute path="/" exact component={Home} />
-                  <CustomRoute path="/question/:id" exact component={QuestionView} />
-                  <CustomRoute path="/add" exact component={AddQuestion} />
                   <CustomRoute
-                    path="/Leaderboard"
+                    path="/question/:id"
+                    exact
+                    component={QuestionView}
+                  />
+                  <CustomRoute path="/add" exact component={AddQuestion} />
+
+                  <CustomRoute
+                    path="/leaderboard"
                     exact
                     component={Leaderboard}
                   />
+                   <CustomRoute component={My404Component} />
                 </Switch>
               </div>
             </div>
@@ -44,8 +52,6 @@ class App extends Component {
     );
   }
 }
-
-
 
 function mapStateToProps(loggedUser) {
   return {

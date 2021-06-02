@@ -11,7 +11,12 @@ function CustomRoute({ component: Component, loggedUser, ...rest }) {
         return loggedUser !== null ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/login" />
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { referrer: props.location },
+            }}
+          />
         );
       }}
     />

@@ -32,11 +32,13 @@ class Login extends Component {
 
   render() {
     const { users } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { referrer } = this.props.location.state || {
+      referrer: { pathname: "/" },
+    };
     const { toHome, selectedOption } = this.state;
 
     if (toHome === true) {
-      return <Redirect to={from} />;
+      return <Redirect to={referrer} />;
     }
 
     return (
